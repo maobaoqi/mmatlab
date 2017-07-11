@@ -1,0 +1,26 @@
+% Phase correlation
+clear; 
+imgRef = zeros(512, 512);
+imgRef(20, 20) = 10;
+imgRef(20, 21) = 10;
+ 
+ %figure, imshow(imgRef, []);
+ 
+
+imgSrc = zeros(512, 512);
+imgSrc(400, 20) = 10;
+imgSrc(400, 21) = 10;
+    
+srcFFT = fft2(imgSrc);
+refFFT = fft2(imgRef);
+
+imgDst = srcFFT.*conj(refFFT);
+imgDst = imgDst./abs(imgDst + 1e-);
+
+imgDst = ifft2(imgDst);
+%imgDst = abs(imgDst);
+
+[peak, idx] = max(imgDst(:));
+[row, col] = ind2sub(size(imgDst), idx);
+
+
