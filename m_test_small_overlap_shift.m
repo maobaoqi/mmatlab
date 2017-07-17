@@ -1,24 +1,30 @@
 % test two small overlap images shift vector
+clear;
 im = imread('cameraman.tif');
 
 % input simulate shift value sr and sc
-sr = 100;
+sr = 70;
 sc = 0;
 
 start_r = 1;
 start_c = 1;
 
 im1 = im(start_r:(start_r+128), start_c:(start_c+128));
-im1 = padarray(im1, [size(im1, 1), size(im1, 2)], 0, 'post');
+% im1 = padarray(im1, [size(im1, 1), size(im1, 2)], 0, 'post');
+wh = hann(size(im1, 1)) * hann(size(im1, 2))';
+im1 = double(im1).*wh;
+
 figure;
 subplot(1, 2, 1);
-imshow(im1);
+imshow(im1, []);
 title('image 1');
 
 im2 = im((sr+start_r):(sr+start_r+128), (sc+start_c):(sc+start_c+128));
-im2 = padarray(im2, [size(im2, 1), size(im2, 2)], 0, 'post');
+% im2 = padarray(im2, [size(im2, 1), size(im2, 2)], 0, 'post');
+im2 = double(im2).*wh;
+
 subplot(1, 2, 2);
-imshow(im2);
+imshow(im2, []);
 title('image 2');
 
 % fft

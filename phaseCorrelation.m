@@ -2,19 +2,22 @@
 clear; 
 imgRef = zeros(512, 512);
 imgRef(:, :) = 1;
-imgRef(30, 20) = 10;
-imgRef(30, 21) = 10;
+imgRef(300, 20) = 10;
+imgRef(300, 21) = 10;
 
 imgRef = padarray(imgRef, [512, 512], 'post');
+% winH = hann(512) * hann(512)';
+% imgRef = imgRef.*winH;
 
- %figure, imshow(imgRef, []);
+%figure, imshow(imgRef, []);
  
 
 imgSrc = zeros(512, 512);
 imgSrc(:, :) = 1;
-imgSrc(300, 20) = 10;
-imgSrc(300, 21) = 10;
+imgSrc(30, 20) = 10;
+imgSrc(30, 21) = 10;
 imgSrc = padarray(imgSrc, [512, 512], 'post');
+% imgSrc = imgSrc.*winH;
     
 srcFFT = fft2(imgSrc);
 refFFT = fft2(imgRef);
